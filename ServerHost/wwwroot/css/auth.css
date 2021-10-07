@@ -1,0 +1,35 @@
+#login div.card,
+#signin div.card {
+    border-radius: 1rem !important;
+    box-shadow: 3px 2px 14px #cfcfcf;
+}
+
+#login div.card img.card-img-top,
+#signin div.card img.card-img-top {
+    border-radius: 1rem 1rem 0 0;
+}
+
+div #login .card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+div #signin .card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+body{
+    overflow: auto;
+}
+
+body div.container {
+    margin-top: 8rem;
+}
+
+#login,
+#signin {
+    max-width: 500px;
+    min-width: 400px;
+    margin: auto;
+}

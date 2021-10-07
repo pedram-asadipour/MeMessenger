@@ -1,0 +1,72 @@
+﻿@page
+@model ServerHost.Pages.AuthModel
+@{
+}
+
+
+<div id="login">
+    <div class="card border-0">
+        <img class="card-img-top" src="wwwroot/img/bg-1.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h2 class="card-title">ورود به حساب</h2>
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="form-group mt-3">
+                    <a onclick="ShowSignin()" href="#">ساخت حساب کاربری</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div id="Signin">
+    <div class="card border-0">
+        <img class="card-img-top" src="wwwroot/img/bg-7.png" alt="Card image cap">
+        <div class="card-body">
+            <h2 class="card-title">ایجاد حساب</h2>
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="form-group mt-3">
+                    <a onclick="Showlogin()" href="#">ورود به حساب کاربری</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section style
+{
+    <link rel="stylesheet" href="~/css/auth.css" type="text/css" />
+}
+
+@section script
+{
+    <partial name="Shared/_ValidationScriptsPartial"/>
+    <script src="~/js/auth.js" type="text/javascript"></script>
+}
