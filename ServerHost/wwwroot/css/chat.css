@@ -11,18 +11,16 @@
   font-style: normal;
 }
 
+body,
 input,
 input::placeholder {
   font-family: "Vazir", sans-serif !important;
 }
 
 body {
-  direction: rtl !important;
-  text-align: right !important;
-}
-
-body {
-  overflow: hidden;
+    direction: rtl !important;
+    text-align: right !important;
+    overflow: hidden;
     background: #f5f7fb;
 }
 

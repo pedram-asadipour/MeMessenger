@@ -4,6 +4,151 @@
     "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\ServerHost\\ServerHost.csproj": {}
   },
   "projects": {
+    "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\CoreLayer\\CoreLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\CoreLayer\\CoreLayer.csproj",
+        "projectName": "CoreLayer",
+        "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\CoreLayer\\CoreLayer.csproj",
+        "packagesPath": "C:\\Users\\pedram\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\CoreLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pedram\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\DataLayer\\DataLayer.csproj"
+              },
+              "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj": {
+                "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\DataLayer\\DataLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\DataLayer\\DataLayer.csproj",
+        "projectName": "DataLayer",
+        "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\DataLayer\\DataLayer.csproj",
+        "packagesPath": "C:\\Users\\pedram\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\DataLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pedram\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\ServerHost\\ServerHost.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -12,6 +157,85 @@
         "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\ServerHost\\ServerHost.csproj",
         "packagesPath": "C:\\Users\\pedram\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\ServerHost\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pedram\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\CoreLayer\\CoreLayer.csproj": {
+                "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\CoreLayer\\CoreLayer.csproj"
+              },
+              "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\DataLayer\\DataLayer.csproj"
+              },
+              "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj": {
+                "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj",
+        "projectName": "_Framework",
+        "projectPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj",
+        "packagesPath": "C:\\Users\\pedram\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -54,9 +278,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

@@ -1,0 +1,36 @@
+﻿@model CoreLayer.AccountAgg.Contract.SignupViewModel
+
+<div id="signup">
+    <div class="card border-0">
+        <div class="card-body">
+            <h2 class="card-title">ایجاد حساب</h2>
+            <form asp-page-handler="Signup" method="POST">
+
+                <div class="form-group">
+                    <label asp-for="Username"></label>
+                    <input asp-for="Username" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="RePassword"></label>
+                    <input asp-for="RePassword" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">ایحاد</button>
+                <div class="form-group mt-3">
+                    <a href="#signin">ورود به حساب کاربری</a>
+                </div>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+

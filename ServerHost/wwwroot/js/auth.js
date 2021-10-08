@@ -1,34 +1,24 @@
-const contactChats = $("#contact-chat-items");
-const Chats = $("#Chats");
-const currentUser = $("#user-detail .current-user");
-const userChat = $("#user-detail .user-chat");
-const chatsSection = document.querySelector("#Chats ul");
+const signin = $("#signin");
+const signup = $("#signup");
 
 
-$(function () {
+$(function() {
 
-  //#region Go To End Scroll
-  chatsSection.scrollTop = chatsSection.scrollHeight;
-  //#endregion
+    HashChecker();
+    $(window).on("hashchange", HashChecker);
 
 });
 
-function openChat(element) {
-  if (!contactChats.hasClass("disable-element")) {
-    contactChats.addClass("disable-element");
-    Chats.removeClass("disable-element");
+function HashChecker(){
+    const hash = window.location.hash == "" ? "#signin" : window.location.hash;
 
-    currentUser.addClass("disable-element");
-    userChat.removeClass("disable-element");
-  }
-}
+    if (hash === "#signin") {
+        signup.slideUp();
+        signin.slideDown();
+    }
 
-function back() {
-  if (contactChats.hasClass("disable-element")) {
-    contactChats.removeClass("disable-element");
-    Chats.addClass("disable-element");
-
-    currentUser.removeClass("disable-element");
-    userChat.addClass("disable-element");
-  }
+    if (hash === "#signup") {
+        signin.slideUp();
+        signup.slideDown();
+    }
 }
