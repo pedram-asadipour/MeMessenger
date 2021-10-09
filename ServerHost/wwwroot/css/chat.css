@@ -32,6 +32,11 @@ body {
   color: #ff5588 !important;
 }
 
+.ltr {
+    direction: ltr;
+    text-align: left;
+}
+
 header {
   background: #ffffff;
   margin: 2rem 0;

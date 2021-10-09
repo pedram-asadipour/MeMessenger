@@ -9,7 +9,7 @@ namespace DataLayer.Entities
 
         public BaseEntity()
         {
-            CreationDate = DateTime.UtcNow;
+            CreationDate = DateTime.Now;
         }
     }
 }

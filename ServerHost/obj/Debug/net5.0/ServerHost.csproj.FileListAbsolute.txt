@@ -78,3 +78,7 @@ C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\bin\Debug\net5.0\CoreLa
 C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\bin\Debug\net5.0\_Framework.dll
 C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\bin\Debug\net5.0\CoreLayer.pdb
 C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\bin\Debug\net5.0\_Framework.pdb
+C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\bin\Debug\net5.0\libman.json
+C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\obj\Debug\net5.0\Razor\Pages\Shared\Home\_chatList.cshtml.g.cs
+C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\obj\Debug\net5.0\Razor\Pages\Shared\Home\_chatMessage.cshtml.g.cs
+C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\obj\Debug\net5.0\Razor\Pages\Shared\Home\_header.cshtml.g.cs

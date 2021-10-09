@@ -8,11 +8,13 @@ namespace DataLayer.Entities
         public string Password { get; private set; }
         public string ProfileImage { get; private set; }
 
-        public IEnumerable<Message> Messages { get; private set; }
-        public IEnumerable<UserChat> UserChats { get; private set; }
+        public List<Message> Messages { get; private set; }
+        public List<UserChat> UserChats { get; private set; }
 
         protected Account()
         {
+            Messages = new List<Message>();
+            UserChats = new List<UserChat>();
         }
 
         public Account(string username, string password, string profileImage = "")
@@ -22,6 +24,9 @@ namespace DataLayer.Entities
 
             if (!string.IsNullOrWhiteSpace(profileImage))
                 ProfileImage = profileImage;
+
+            Messages = new List<Message>();
+            UserChats = new List<UserChat>();
         }
 
         public void Edit(string username, string password, string profileImage = "")

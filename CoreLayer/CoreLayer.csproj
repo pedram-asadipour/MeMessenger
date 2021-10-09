@@ -9,7 +9,6 @@
     <Folder Include="AccountAgg\Services\" />
     <Folder Include="UserChatAgg\" />
     <Folder Include="MessageAgg\" />
-    <Folder Include="ChatAgg\" />
   </ItemGroup>
 
   <ItemGroup>
