@@ -1,4 +1,7 @@
-﻿namespace CoreLayer.ChatAgg.Contract
+﻿using System.Collections.Generic;
+using DataLayer.Entities;
+
+namespace CoreLayer.ChatAgg.Contract
 {
     public class ChatViewModel
     {

@@ -13,34 +13,19 @@ namespace DataLayer.Entities
         public List<Message> Messages { get; private set; }
         public List<UserChat> UserChats { get; private set; }
 
-        public Chat()
+        protected Chat()
         {
             Messages = new List<Message>();
             UserChats = new List<UserChat>();
         }
 
-        public void Private()
-        {
-            Title = null;
-            IsPrivate = true;
-            IsGroup = false;
-            IsChannel = false;
-        }
-
-        public void Group(string title)
+        public Chat(string title, string image, bool isPrivate, bool isGroup, bool isChannel)
         {
             Title = title;
-            IsGroup = true;
-            IsPrivate = false;
-            IsChannel = false;
-        }
-
-        public void Channel(string title)
-        {
-            Title = title;
-            IsChannel = true;
-            IsGroup = false ;
-            IsPrivate = false;
+            Image = image;
+            IsPrivate = isPrivate;
+            IsGroup = isGroup;
+            IsChannel = isChannel;
         }
     }
 }

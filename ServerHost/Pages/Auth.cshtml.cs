@@ -19,7 +19,7 @@ namespace ServerHost.Pages
         public IActionResult OnGet()
         {
             if (_authHelper.IsAuth())
-                return Redirect("/Index");
+                return Redirect("/");
 
             return Page();
         }
@@ -32,7 +32,7 @@ namespace ServerHost.Pages
             var result = _accountServices.Signin(command);
 
             if (result.IsSucceeded)
-                return Redirect("/Index");
+                return Redirect("/");
 
             ModelState.AddModelError(command.Username,result.Message);
             return Page();
@@ -58,7 +58,7 @@ namespace ServerHost.Pages
         public IActionResult OnGetSignout()
         {
             _accountServices.Signout();
-            return Page();
+            return Redirect("/auth");
         }
     }
 }

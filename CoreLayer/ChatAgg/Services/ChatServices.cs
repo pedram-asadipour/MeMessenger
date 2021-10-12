@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using _Framework;
 using _Framework.Auth;
+using _Framework.FileManager;
 using CoreLayer.ChatAgg.Contract;
 using DataLayer.Entities;
 using DataLayer.UnitOfWork;
@@ -15,11 +15,58 @@ namespace CoreLayer.ChatAgg.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthHelper _authHelper;
+        private readonly IFileManager _fileManager;
+        private readonly OperationResult _result;
 
-        public ChatServices(IUnitOfWork unitOfWork, IAuthHelper authHelper)
+        public ChatServices(IUnitOfWork unitOfWork, IAuthHelper authHelper, IFileManager fileManager)
         {
             _unitOfWork = unitOfWork;
             _authHelper = authHelper;
+            _fileManager = fileManager;
+
+            _result = new OperationResult();
+        }
+
+        public OperationResult CreateChat(CreateChat command)
+        {
+            try
+            {
+                if (_unitOfWork.Chats.Exists(x => x.Title == command.Title && x.Title != ""))
+                    _result.Failed(OperationMessage.ExistTitle);
+
+                var image = "";
+
+                if (command.Image != null)
+                    image = _fileManager.Uploader(command.Image, "Chat");
+
+                var chat = new Chat(command.Title, image, command.IsPrivate, command.IsGroup, command.IsChannel);
+                _unitOfWork.Chats.Create(chat);
+                _unitOfWork.SaveChange();
+
+                return _result.Success();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public Chat CreatePrivateChat()
+        {
+            try
+            {
+                var chat = new Chat("", "", true, false, false);
+                _unitOfWork.Chats.Create(chat);
+                _unitOfWork.SaveChange();
+
+                return chat;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public List<ChatViewModel> GetChats()
@@ -32,6 +79,8 @@ namespace CoreLayer.ChatAgg.Services
                     .Where(x => x.AccountId == accountId)
                     .Include(x => x.Chat)
                     .ThenInclude(x => x.Messages.OrderByDescending(x => x.Id))
+                    .OrderByDescending(x => x.ChatId)
+                    .Select(x => new {x.ChatId,x.Chat})
                     .ToList()
                     .Select(x => new ChatViewModel
                     {
@@ -44,17 +93,19 @@ namespace CoreLayer.ChatAgg.Services
                         IsGroup = x.Chat.IsGroup,
                         IsChannel = x.Chat.IsChannel,
                         IsOnline = false,
-                    }).ToList();
+                    })
+                    .ToList();
 
                 var privateAccounts = _unitOfWork.UserChat.Get()
                     .Include(x => x.Account)
                     .Select(x => new {x.ChatId, x.AccountId, x.Account.Username, x.Account.ProfileImage})
+                    .OrderByDescending(x => x.ChatId)
                     .ToList();
 
                 foreach (var chat in query.Where(x => x.IsPrivate))
                 {
                     chat.AccountId = privateAccounts
-                        .SingleOrDefault(x => x.ChatId == chat.ChatId && x.AccountId != accountId).AccountId;
+                        .SingleOrDefault(x => x.ChatId == chat.ChatId && x.AccountId != accountId)?.AccountId ?? 0;
 
                     chat.Title = privateAccounts
                         .SingleOrDefault(x => x.ChatId == chat.ChatId && x.AccountId != accountId)?.Username;
@@ -78,7 +129,11 @@ namespace CoreLayer.ChatAgg.Services
             {
                 var accountId = _authHelper.GetAuthAccount().Id;
 
-                var channelGroupChat = _unitOfWork.Chats.Get()
+                var query = new List<ChatViewModel>();
+
+                if (string.IsNullOrWhiteSpace(search)) return query;
+
+                query.AddRange(_unitOfWork.Chats.Get()
                     .Where(x => x.Title.StartsWith(search))
                     .Include(x => x.Messages.OrderByDescending(x => x.Id))
                     .Select(x => new ChatViewModel
@@ -86,20 +141,29 @@ namespace CoreLayer.ChatAgg.Services
                         ChatId = x.Id,
                         Title = x.Title,
                         Image = x.Image,
-                        LastMessage = x.Messages.FirstOrDefault().Body ?? "",
-                        LastMessageDate = x.Messages.FirstOrDefault().CreationDate.ToPersianDateTime() ?? "",
+                        LastMessage = x.Messages.First().Body ?? "",
+                        LastMessageDate = x.Messages.First().CreationDate == null
+                            ? ""
+                            : x.Messages.First().CreationDate.ToPersianDateTime(),
                         IsPrivate = x.IsPrivate,
                         IsGroup = x.IsGroup,
                         IsChannel = x.IsChannel,
                         IsOnline = false
                     })
-                    .ToList();
+                    .ToList());
 
-                var privateChat = _unitOfWork.Accounts.Get()
+                var chats = _unitOfWork.Chats.Get()
+                    .Where(x => x.IsPrivate)
+                    .Include(x => x.UserChats)
+                    .Select(x => new {x.Id,x.UserChats})
+                    .ToList();
+                
+                var privateChats = _unitOfWork.Accounts.Get()
                     .Where(x => x.Username.StartsWith(search) && x.Id != accountId)
+                    .Include(x => x.UserChats)
                     .Select(x => new ChatViewModel
                     {
-                        ChatId = x.Id,
+                        AccountId = x.Id,
                         Title = x.Username,
                         Image = x.ProfileImage,
                         LastMessage = "",
@@ -107,12 +171,19 @@ namespace CoreLayer.ChatAgg.Services
                         IsPrivate = true,
                         IsGroup = false,
                         IsChannel = false,
-                        IsOnline = false
-                    }).ToList();
+                        IsOnline = false,
+                    })
+                    .ToList();
 
-                var query = new List<ChatViewModel>();
-                query.AddRange(privateChat);
-                query.AddRange(channelGroupChat);
+                var chat2 = new List<Chat>();
+
+                foreach (var chat in privateChats)
+                {
+                    var currentChat = chats.SingleOrDefault(x => x.UserChats.Any(z => z.AccountId == chat.AccountId) && x.UserChats.Any(z => z.AccountId == accountId));
+                    chat.ChatId = currentChat?.Id ?? 0;
+                }
+
+                query.AddRange(privateChats);
 
                 return query;
             }

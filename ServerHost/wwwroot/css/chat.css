@@ -228,7 +228,7 @@ element.style {
   padding: 0;
   position: absolute;
   top: 3rem;
-  left: -1rem;
+  left: 0;
   color: #000;
 }
 
@@ -265,7 +265,7 @@ element.style {
   padding: 0;
   position: absolute;
   top: 3rem;
-  right: -1rem;
+  right: 0;
   color: #000;
 }
 
@@ -275,13 +275,14 @@ element.style {
 }
 
 .row #chats ul > li.chat-box.chat-box-left .message-box .message {
-  padding: 0 2rem 1px 1rem;
+  padding: 0 2rem 1rem 1rem;
   text-align: justify;
   display: block;
   margin-bottom: 1rem;
 }
 
 .row #chats div.chat-message-box {
+    display: none;
   position: sticky;
   bottom: 1rem;
   margin: 0 0 0 -6rem;

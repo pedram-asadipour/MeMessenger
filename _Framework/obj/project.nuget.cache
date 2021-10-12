@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "7FNxOj9mIvV6qUvqSYxGJylWCoKvXQz9iROrwaqvSkmPsT19Hd/BH0RG5zJ7Htk8r7j+DCwdJBKKDfRAAyyxdA==",
+  "dgSpecHash": "EQLax/WBS0lHKbxUb765wEkO0/v6nVmiBjcs3PCKCim9B+U3UjtDRdKn6Xq7BkfqUyuM8qpYJeDkxY2BTtseyA==",
   "success": true,
   "projectFilePath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\pedram\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.10\\microsoft.aspnetcore.http.features.5.0.10.nupkg.sha512",
+    "C:\\Users\\pedram\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\pedram\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

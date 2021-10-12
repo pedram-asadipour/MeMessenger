@@ -1,9 +1,14 @@
 using System;
 using _Framework.Auth;
+using _Framework.FileManager;
 using CoreLayer.AccountAgg.Contract;
 using CoreLayer.AccountAgg.Services;
 using CoreLayer.ChatAgg.Contract;
 using CoreLayer.ChatAgg.Services;
+using CoreLayer.MessageAgg.Contract;
+using CoreLayer.MessageAgg.Services;
+using CoreLayer.UserChatAgg.Contract;
+using CoreLayer.UserChatAgg.Services;
 using DataLayer;
 using DataLayer.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServerHost.Framework.Auth;
+using ServerHost.Framework.FileManager;
 using ServerHost.Hubs.Chat;
 
 namespace ServerHost
@@ -62,7 +68,11 @@ namespace ServerHost
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAccountServices, AccountServices>();
             services.AddScoped<IChatServices, ChatServices>();
+            services.AddScoped<IMessageServices, MessageServices>();
+            services.AddScoped<IUserChatServices, UserChatServices>();
+
             services.AddSingleton<IAuthHelper, AuthHelper>();
+            services.AddSingleton<IFileManager, FileManager>();
 
             services.AddSignalR();
             services.AddHttpContextAccessor();

@@ -13,6 +13,7 @@ async function start() {
         GetChats(true);
         searchChatsInput.prop("disabled", false);
         searchChatsInput.css("background", "#fff");
+        Chats.css("display", "block");
 
     } catch (err) {
         console.log(err);
@@ -22,6 +23,8 @@ async function start() {
         GetChats(false);
         searchChatsInput.prop("disabled", true);
         searchChatsInput.css("background", "#ccc");
+        Chats.css("display", "none");
+
         setTimeout(start, 1500);
     }
 };
