@@ -99,17 +99,31 @@ function ChatMessagesGenerator(messages, isOneAdd = false) {
         return;
     }
 
+    const chatId = $(chatMessagesMenu).attr("current-chat-id");
+
+    if (chatId != messages[0].chatId)
+        return;
+
     var message = "";
 
     messages.forEach(x => {
-
         var owner = x.isOwner ? "chat-box-right" : "chat-box-left";
-        var profileImage = (x.profileImage == null || x.profileImage == "") ? "/img/default-avatar.jpg" : x.profileImage
+        var profileImage = (x.profileImage == null || x.profileImage == "")
+            ? "/img/default-avatar.jpg"
+            : x.profileImage;
+        var body;
+
+        if (x.isFile) {
+            body = `<a href="uploads/${x.body}" target="_blank">فایل</a>`;
+        } else {
+            body = x.body;
+        }
+
         message += `<li message-id="${x.id}" class="chat-box ${owner}">
                         <img src="${profileImage}" alt="${x.username}">
                         <div class="message-box">
                             <p class="username">${x.username}</p>
-                            <p class="message">${x.body}</p>
+                            <p class="message">${body}</p>
                         </div>
                         <span class="send-time">${x.sendDate}</span>
                     </li>`;
@@ -140,8 +154,13 @@ function ChatListGenerator(chats) {
         var image = (x.image == "" || x.image == null) ? "/img/default-avatar.jpg" : `uploads/${x.image}`;
 
         if (x.isPrivate) {
-            privateDetail = `<i class="status-point fa fa-circle text-danger"></i>
+            if (x.isOnline) {
+                privateDetail = `<i class="status-point fa fa-circle text-success"></i>
+                            <span class="status-alert">آنلاین</span>`;
+            } else {
+                privateDetail = `<i class="status-point fa fa-circle text-danger"></i>
                             <span class="status-alert">آفلاین</span>`;
+            }
         }
 
         chatItems += `
@@ -205,9 +224,9 @@ function GetChatMessage(chatId) {
             }
         };
 
-        $.ajax(settings).done(function(response) {
-            ChatMessagesGenerator(response);
+        $.ajax(settings).done(function (response) {
             messagesUl.attr("current-chat-id", chatId);
+            ChatMessagesGenerator(response);
         });
     } else {
         ChatMessagesGenerator(null);
@@ -215,7 +234,6 @@ function GetChatMessage(chatId) {
 }
 
 async function ResetChat(chatId, accountId) {
-    debugger;
     if (chatId == 0 || accountId == 0) {
 
         searchChatsInput.val("");

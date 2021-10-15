@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using _Framework;
 using _Framework.Auth;
 using _Framework.FileManager;
@@ -43,6 +42,7 @@ namespace CoreLayer.MessageAgg.Services
                     .Select(x => new MessageViewModel
                     {
                         Id = x.Id,
+                        ChatId = x.ChatId,
                         IsOwner = x.AccountId == accountId,
                         Username = x.Account.Username,
                         ProfileImage = x.Account.ProfileImage,
@@ -106,6 +106,7 @@ namespace CoreLayer.MessageAgg.Services
                 return new MessageViewModel
                 {
                     Id = message.Id,
+                    ChatId = command.ChatId,
                     IsOwner = true,
                     Username = account.Username,
                     ProfileImage = account.ProfileImage,

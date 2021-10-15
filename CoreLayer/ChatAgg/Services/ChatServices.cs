@@ -5,6 +5,7 @@ using _Framework;
 using _Framework.Auth;
 using _Framework.FileManager;
 using CoreLayer.ChatAgg.Contract;
+using CoreLayer.UserChatAgg.Contract;
 using DataLayer.Entities;
 using DataLayer.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,15 @@ namespace CoreLayer.ChatAgg.Services
         private readonly IAuthHelper _authHelper;
         private readonly IFileManager _fileManager;
         private readonly OperationResult _result;
+        private readonly List<UserStatus> _userStatus;
 
-        public ChatServices(IUnitOfWork unitOfWork, IAuthHelper authHelper, IFileManager fileManager)
+        public ChatServices(IUnitOfWork unitOfWork, IAuthHelper authHelper, IFileManager fileManager,
+            List<UserStatus> userStatus)
         {
             _unitOfWork = unitOfWork;
             _authHelper = authHelper;
             _fileManager = fileManager;
+            _userStatus = userStatus;
 
             _result = new OperationResult();
         }
@@ -80,7 +84,7 @@ namespace CoreLayer.ChatAgg.Services
                     .Include(x => x.Chat)
                     .ThenInclude(x => x.Messages.OrderByDescending(x => x.Id))
                     .OrderByDescending(x => x.ChatId)
-                    .Select(x => new {x.ChatId,x.Chat})
+                    .Select(x => new {x.ChatId, x.Chat})
                     .ToList()
                     .Select(x => new ChatViewModel
                     {
@@ -112,6 +116,8 @@ namespace CoreLayer.ChatAgg.Services
 
                     chat.Image = privateAccounts
                         .SingleOrDefault(x => x.ChatId == chat.ChatId && x.AccountId != accountId)?.ProfileImage;
+
+                    chat.IsOnline = _userStatus.Find(x => x.Id == chat.AccountId)?.IsOnline ?? false;
                 }
 
                 return query;
@@ -155,9 +161,9 @@ namespace CoreLayer.ChatAgg.Services
                 var chats = _unitOfWork.Chats.Get()
                     .Where(x => x.IsPrivate)
                     .Include(x => x.UserChats)
-                    .Select(x => new {x.Id,x.UserChats})
+                    .Select(x => new {x.Id, x.UserChats})
                     .ToList();
-                
+
                 var privateChats = _unitOfWork.Accounts.Get()
                     .Where(x => x.Username.StartsWith(search) && x.Id != accountId)
                     .Include(x => x.UserChats)
@@ -179,8 +185,11 @@ namespace CoreLayer.ChatAgg.Services
 
                 foreach (var chat in privateChats)
                 {
-                    var currentChat = chats.SingleOrDefault(x => x.UserChats.Any(z => z.AccountId == chat.AccountId) && x.UserChats.Any(z => z.AccountId == accountId));
+                    var currentChat = chats.SingleOrDefault(x =>
+                        x.UserChats.Any(z => z.AccountId == chat.AccountId) &&
+                        x.UserChats.Any(z => z.AccountId == accountId));
                     chat.ChatId = currentChat?.Id ?? 0;
+                    chat.IsOnline = _userStatus.Find(x => x.Id == chat.AccountId)?.IsOnline ?? false;
                 }
 
                 query.AddRange(privateChats);
@@ -193,5 +202,6 @@ namespace CoreLayer.ChatAgg.Services
                 throw;
             }
         }
+
     }
 }

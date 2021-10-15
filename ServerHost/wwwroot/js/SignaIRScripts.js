@@ -33,11 +33,16 @@ connection.onclose(async () => {
     setTimeout(await start(), 1500);
 });
 
+//connection.on("ReceiveChats",
+//    function(response) {
+//        console.log(response);
+//    });
 
-connection.on("ReceiveChats",
-    function(response) {
-        console.log(response);
-    });
+connection.on("ReceiveMessage", function (result) {
+    const message = [];
+    message.push(result);
+    ChatMessagesGenerator(message, true);
+});
 
 
 $(function() {

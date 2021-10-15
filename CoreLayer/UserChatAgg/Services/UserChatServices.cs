@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Framework.Auth;
 using CoreLayer.UserChatAgg.Contract;
 using DataLayer.Entities;
@@ -52,6 +53,17 @@ namespace CoreLayer.UserChatAgg.Services
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public List<string> GetUsersChat(long chatId)
+        {
+            var accountId = _authHelper.GetAuthAccount().Id;
+
+            var query = _unitOfWork.UserChat.Get()
+                .Where(x => x.ChatId == chatId && x.AccountId != accountId)
+                .Select(x => new string(x.AccountId.ToString()))
+                .ToList();
+            return query;
         }
     }
 }

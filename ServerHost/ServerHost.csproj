@@ -22,8 +22,4 @@
     <ProjectReference Include="..\_Framework\_Framework.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Hubs\Chat\" />
-  </ItemGroup>
-
 </Project>

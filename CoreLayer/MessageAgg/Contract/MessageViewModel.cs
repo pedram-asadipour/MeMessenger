@@ -3,6 +3,7 @@
     public class MessageViewModel
     {
         public long Id { get; set; }
+        public long ChatId { get; set; }
         public bool IsOwner { get; set; }
         public string Username { get; set; }
         public string ProfileImage { get; set; }

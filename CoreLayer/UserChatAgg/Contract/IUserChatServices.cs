@@ -7,5 +7,6 @@ namespace CoreLayer.UserChatAgg.Contract
     {
         void JoinChat(JoinChat command);
         void JoinChat(List<JoinChat> command);
+        List<string> GetUsersChat(long chatId);
     }
 }

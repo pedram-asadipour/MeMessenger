@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using _Framework.Auth;
 using _Framework.FileManager;
 using CoreLayer.AccountAgg.Contract;
@@ -73,6 +74,7 @@ namespace ServerHost
 
             services.AddSingleton<IAuthHelper, AuthHelper>();
             services.AddSingleton<IFileManager, FileManager>();
+            services.AddSingleton<List<UserStatus>>();
 
             services.AddSignalR();
             services.AddHttpContextAccessor();
