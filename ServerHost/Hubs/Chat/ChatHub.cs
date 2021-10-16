@@ -21,15 +21,32 @@ namespace ServerHost.Hubs.Chat
             _userStatus = userStatus;
         }
 
-        public override async Task OnConnectedAsync()
+        public Task UserStatus(bool isOnline)
+        {
+            var account = _authHelper.GetAuthAccount();
+
+            var userStatus = new UserStatus
+            {
+                Id = account.Id,
+                ConnectionId = Context.ConnectionId,
+                Username = account.Username,
+                IsOnline = isOnline
+            };
+
+            return Clients.Others.UserStatus(userStatus);
+        }
+
+        public override Task OnConnectedAsync()
         {
             AddOnlineUser();
-            await base.OnConnectedAsync();
+            UserStatus(true);
+            return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception? exception)
         {
             RemoveOfflineUser();
+            UserStatus(false);
             return base.OnDisconnectedAsync(exception);
         }
 

@@ -33,12 +33,33 @@ connection.onclose(async () => {
     setTimeout(await start(), 1500);
 });
 
-connection.on("ReceiveMessage", function (result) {
-    const message = [];
-    message.push(result);
-    ChatMessagesGenerator(message, true);
-});
+connection.on("ReceiveMessage",
+    function(result) {
+        const message = [];
+        message.push(result);
+        ChatMessagesGenerator(message, true);
+    });
 
+connection.on("UserStatus",
+    function(result) {
+        const element = $(`li[account-id='${result.id}']`);
+
+        if (element.length != 0) {
+
+            const statusPoint = element.find("i.status-point");
+            const statusAlert = element.find("span.status-alert");
+
+            if (result.isOnline) {
+                $(statusPoint).removeClass("text-danger");
+                $(statusPoint).addClass("text-success");
+                $(statusAlert).html("آنلاین");
+            } else {
+                $(statusPoint).removeClass("text-success");
+                $(statusPoint).addClass("text-danger");
+                $(statusAlert).html("آفلاین");
+            }
+        }
+    });
 
 $(function() {
 
