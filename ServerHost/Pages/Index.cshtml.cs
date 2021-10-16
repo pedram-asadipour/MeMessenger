@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CoreLayer.AccountAgg.Contract;
 using CoreLayer.ChatAgg.Contract;
 using CoreLayer.MessageAgg.Contract;
 using CoreLayer.UserChatAgg.Contract;
@@ -60,6 +61,12 @@ namespace ServerHost.Pages
             _hubContext.Clients.Users(usersChat).SendAsync("ReceiveMessage", result);
 
             result.IsOwner = true;
+            return new JsonResult(result);
+        }
+
+        public JsonResult OnPostGetChatInfo([FromBody]ChatInfo command)
+        {
+            var result = _chatServices.GetChatInfo(command);
             return new JsonResult(result);
         }
     }

@@ -31,6 +31,51 @@ namespace CoreLayer.ChatAgg.Services
             _result = new OperationResult();
         }
 
+        public ChatInfoViewModel GetChatInfo(ChatInfo command)
+        {
+            if (command == null)
+                return new ChatInfoViewModel();
+
+            try
+            {
+                if (command.ChatId != 0 && command.AccountId != 0)
+                {
+                    var account = _unitOfWork.Accounts.GetBy(command.AccountId);
+
+                    return new ChatInfoViewModel
+                    {
+                        AccountId = account.Id,
+                        Title = account.Username,
+                        Image = account.ProfileImage,
+                        IsOnline = _userStatus.Find(x => x.Id == account.Id)?.IsOnline ?? false,
+                        IsGroupOrChannel = false
+                    };
+                }
+
+                if (command.ChatId != 0 && command.AccountId == 0)
+                {
+                    var chat = _unitOfWork.Chats.GetBy(command.ChatId);
+
+                    return new ChatInfoViewModel
+                    {
+                        AccountId = 0,
+                        Title = chat.Title,
+                        Image = chat.Image,
+                        IsOnline = false,
+                        IsGroupOrChannel = true
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+
+            return new ChatInfoViewModel();
+        }
+
         public OperationResult CreateChat(CreateChat command)
         {
             try
@@ -202,6 +247,5 @@ namespace CoreLayer.ChatAgg.Services
                 throw;
             }
         }
-
     }
 }

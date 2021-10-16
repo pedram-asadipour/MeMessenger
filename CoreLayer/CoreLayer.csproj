@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AccountAgg\Contract\" />
     <Folder Include="AccountAgg\Services\" />
     <Folder Include="UserChatAgg\Services\" />
   </ItemGroup>

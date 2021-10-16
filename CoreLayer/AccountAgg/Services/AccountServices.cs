@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using _Framework;
 using _Framework.Auth;
 using CoreLayer.AccountAgg.Contract;
+using CoreLayer.UserChatAgg.Contract;
 using DataLayer.Entities;
 using DataLayer.UnitOfWork;
 
@@ -11,12 +13,14 @@ namespace CoreLayer.AccountAgg.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthHelper _authHelper;
+        private readonly List<UserStatus> _userStatus;
         private readonly OperationResult _result;
 
-        public AccountServices(IUnitOfWork unitOfWork, IAuthHelper authHelper)
+        public AccountServices(IUnitOfWork unitOfWork, IAuthHelper authHelper, List<UserStatus> userStatus)
         {
             _unitOfWork = unitOfWork;
             _authHelper = authHelper;
+            _userStatus = userStatus;
             _result = new OperationResult();
         }
 

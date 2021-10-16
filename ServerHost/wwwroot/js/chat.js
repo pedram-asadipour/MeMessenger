@@ -34,6 +34,10 @@ function openChat(element) {
     //
 
     GetChatMessage(chatId);
+    GetChatInfo({
+        chatId,
+        accountId
+    });
 
     if (!contactChats.hasClass("disable-element")) {
         contactChats.addClass("disable-element");
@@ -248,6 +252,44 @@ async function ResetChat(chatId, accountId) {
             chatElementItem = document.querySelector(`li[account-id='${accountId}']`);
 
         openChat(chatElementItem);
+    }
+}
+
+function GetChatInfo(chatInfo) {
+    if (isConnect) {
+        const settings = {
+            "url": "/Index?handler=GetChatInfo",
+            "method": "Post",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(chatInfo),
+            "error": function (e) {
+                console.log(e);
+            }
+        };
+
+        $.ajax(settings).done(function (response) {
+            const profile = response.image == null ? "/img/default-avatar.jpg" : `uploads/${response.image}`;
+
+            let status = "";
+            if (response.isGroupOrChannel) {
+                status = "";
+            } else {
+                status = response.isOnline ? "آنلاین" : "آفلاین";
+            }
+
+            const element =
+                `<img id="user-chat-avatar" src="${profile}" class="d-inline-block align-top" alt="${response.title}">
+                 <div class="connection-status mr-3">
+                      <p id="user-chat-info">${response.title}</p>
+                      <p id="user-chat-connection-status">${status}</p>
+                 </div>`;
+
+            userChat.html(element);
+            console.log(response);
+        });
     }
 }
 

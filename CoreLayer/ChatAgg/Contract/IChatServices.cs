@@ -6,6 +6,7 @@ namespace CoreLayer.ChatAgg.Contract
 {
     public interface IChatServices
     {
+        ChatInfoViewModel GetChatInfo(ChatInfo command);
         OperationResult CreateChat(CreateChat command);
         Chat CreatePrivateChat();
         List<ChatViewModel> GetChats();
