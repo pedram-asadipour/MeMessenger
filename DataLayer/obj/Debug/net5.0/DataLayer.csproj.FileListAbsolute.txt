@@ -12,3 +12,4 @@ C:\Users\pedram\Desktop\me\source\MeMessenger\DataLayer\obj\Debug\net5.0\DataLay
 C:\Users\pedram\Desktop\me\source\MeMessenger\DataLayer\obj\Debug\net5.0\ref\DataLayer.dll
 C:\Users\pedram\Desktop\me\source\MeMessenger\DataLayer\obj\Debug\net5.0\DataLayer.pdb
 C:\Users\pedram\Desktop\me\source\MeMessenger\DataLayer\obj\Debug\net5.0\DataLayer.genruntimeconfig.cache
+C:\Users\pedram\Desktop\me\source\MeMessenger\DataLayer\obj\Debug\net5.0\DataLayer.csproj.AssemblyReference.cache

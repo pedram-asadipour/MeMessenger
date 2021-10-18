@@ -136,7 +136,9 @@ namespace CoreLayer.ChatAgg.Services
                         ChatId = x.ChatId,
                         Title = x.Chat.Title,
                         Image = x.Chat.Image,
-                        LastMessage = x.Chat.Messages.FirstOrDefault()?.Body ?? "",
+                        LastMessage = (x.Chat.Messages.FirstOrDefault()?.Body != null 
+                            ? ((x.Chat.Messages.FirstOrDefault().IsFile) ? "فایل" : x.Chat.Messages.FirstOrDefault()?.Body) 
+                            : ""),
                         LastMessageDate = x.Chat.Messages.FirstOrDefault()?.CreationDate.ToPersianDateTime() ?? "",
                         IsPrivate = x.Chat.IsPrivate,
                         IsGroup = x.Chat.IsGroup,

@@ -9,3 +9,4 @@ C:\Users\pedram\Desktop\me\source\MeMessenger\_Framework\obj\Debug\net5.0\_Frame
 C:\Users\pedram\Desktop\me\source\MeMessenger\_Framework\obj\Debug\net5.0\_Framework.dll
 C:\Users\pedram\Desktop\me\source\MeMessenger\_Framework\obj\Debug\net5.0\ref\_Framework.dll
 C:\Users\pedram\Desktop\me\source\MeMessenger\_Framework\obj\Debug\net5.0\_Framework.pdb
+C:\Users\pedram\Desktop\me\source\MeMessenger\_Framework\obj\Debug\net5.0\_Framework.csproj.AssemblyReference.cache

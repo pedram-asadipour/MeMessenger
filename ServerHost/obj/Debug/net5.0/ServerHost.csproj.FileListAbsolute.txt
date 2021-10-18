@@ -85,3 +85,7 @@ C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\obj\Debug\net5.0\Razor\
 C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
 C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\bin\Debug\net5.0\System.IO.Pipelines.dll
+C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\obj\Debug\net5.0\Razor\Pages\Shared\Home\_userInfo.cshtml.g.cs
+C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\obj\Debug\net5.0\Razor\Pages\Shared\Home\_addGroup_Channel.cshtml.g.cs
+C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\obj\Debug\net5.0\ServerHost.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\pedram\Desktop\me\source\MeMessenger\ServerHost\obj\Debug\net5.0\Razor\Pages\Shared\Home\_editPassword.cshtml.g.cs

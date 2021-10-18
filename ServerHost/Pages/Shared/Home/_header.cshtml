@@ -2,7 +2,7 @@
 
     <nav id="user-detail" class="navbar navbar-light">
         <a class="navbar-brand d-flex flex-row justify-content-center current-user" href="#">
-            <img id="user-avatar" src="~/img/avatar-1.png" class="d-inline-block align-top" alt="">
+            <img id="user-avatar" src="~/img/default-avatar.jpg" class="d-inline-block align-top" alt="avatar">
 
             <div class="connection-status mr-3">
                 <p id="server-connection-status" class="text-muted">
@@ -13,23 +13,43 @@
             </div>
         </a>
 
-        <a class="navbar-brand d-flex flex-row justify-content-center user-chat disable-element" href="#">
+        <a class="navbar-brand d-flex flex-row justify-content-center user-chat disable-element" href="#" current-chat-id="0">
         </a>
 
         <div>
             <div class="dropdown">
+
                 <button class="btn outline-d" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v"></i>
                 </button>
+
                 <button onclick="back()" class="btn outline-d d-none inline-element" type="button" id="page-back">
                     <i class="fas fa-arrow-left"></i>
                 </button>
+
                 <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton">
 
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-address-card"></i>
-                        درباره
+                    <a class="dropdown-item" href="#showmodal=/Index?handler=profile">
+                        <i class="fa fa-user"></i>
+                        پروفایل
+                    </a>
+
+                    <a class="dropdown-item" href="#showmodal=/Index?handler=password">
+                        <i class="fa fa-key"></i>
+                        ویرایش رمز عبور
+                    </a>
+
+                    <a class="dropdown-item" href="#showmodal=/Index?handler=addGroupChannel">
+                        <i class="fa fa-users"></i>
+                        افزودن گروه
+                    </a>
+
+                    <a class="dropdown-item"
+                       asp-page="/Auth"
+                       asp-page-handler="SignOut">
+                        <i class="fa fa-sign-out"></i>
+                        خروج از حساب
                     </a>
                 </div>
             </div>
@@ -37,3 +57,10 @@
 
     </nav>
 </header>
+
+
+<div class="modal fade" id="MainModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="ModalContent">
+    
+    </div>
+</div>

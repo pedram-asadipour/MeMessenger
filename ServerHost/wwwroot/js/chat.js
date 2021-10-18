@@ -3,6 +3,7 @@ const contactChats = $("#contact-chat-items");
 const Chats = $("#Chats");
 const currentUser = $("#user-detail .current-user");
 const userChat = $("#user-detail .user-chat");
+const userAvatar = $("#user-avatar")
 const chatMessagesMenu = document.querySelector("#Chats ul");
 const chatsMenu = $("#contact-chat-items ul");
 const searchChatsInput = $("#contact-chat-items .search-input");
@@ -13,6 +14,7 @@ const ChatMessageForm = $("#Chats .chat-message-box form");
 
 $(function() {
     GoToEndScroll();
+    UpdateUserProfile();
 });
 
 function GoToEndScroll() {
@@ -74,7 +76,7 @@ function UserConnectionGenerator(connection) {
     }
 }
 
-async  function GetChats(connection) {
+async function GetChats(connection) {
     if (connection) {
         const settings = {
             "url": "/Index?handler=GetChats",
@@ -88,7 +90,7 @@ async  function GetChats(connection) {
             }
         };
 
-    await $.ajax(settings).done(function(response) {
+        await $.ajax(settings).done(function(response) {
             ChatListGenerator(response);
         });
     } else {
@@ -114,7 +116,7 @@ function ChatMessagesGenerator(messages, isOneAdd = false) {
         var owner = x.isOwner ? "chat-box-right" : "chat-box-left";
         var profileImage = (x.profileImage == null || x.profileImage == "")
             ? "/img/default-avatar.jpg"
-            : x.profileImage;
+            : `uploads/${x.profileImage}`;
         var body;
 
         if (x.isFile) {
@@ -207,10 +209,11 @@ async function SearchChats(search) {
     });
 }
 
-function GetChatMessage(chatId) {
+function GetChatMessage(chatId, isCheckChatId = true) {
 
     const messagesUl = $(chatMessagesMenu);
-    if (messagesUl.attr("current-chat-id") == chatId) {
+
+    if (isCheckChatId && messagesUl.attr("current-chat-id") == chatId) {
         return;
     }
 
@@ -228,7 +231,7 @@ function GetChatMessage(chatId) {
             }
         };
 
-        $.ajax(settings).done(function (response) {
+        $.ajax(settings).done(function(response) {
             messagesUl.attr("current-chat-id", chatId);
             ChatMessagesGenerator(response);
         });
@@ -255,7 +258,14 @@ async function ResetChat(chatId, accountId) {
     }
 }
 
-function GetChatInfo(chatInfo) {
+function GetChatInfo(chatInfo, isCheckChatId = true) {
+
+    const chatId = chatInfo.chatId;
+
+    if (isCheckChatId && userChat.attr("current-chat-id") == chatId) {
+        return;
+    }
+
     if (isConnect) {
         const settings = {
             "url": "/Index?handler=GetChatInfo",
@@ -265,12 +275,15 @@ function GetChatInfo(chatInfo) {
                 "Content-Type": "application/json"
             },
             "data": JSON.stringify(chatInfo),
-            "error": function (e) {
+            "error": function(e) {
                 console.log(e);
             }
         };
 
-        $.ajax(settings).done(function (response) {
+        $.ajax(settings).done(function(response) {
+
+            userChat.attr("current-chat-id", chatId);
+
             const profile = response.image == null ? "/img/default-avatar.jpg" : `uploads/${response.image}`;
 
             let status = "";
@@ -288,68 +301,193 @@ function GetChatInfo(chatInfo) {
                  </div>`;
 
             userChat.html(element);
-            console.log(response);
         });
     }
 }
 
-//Search Chats
-searchChatsInput.on("keyup",
-    function() {
-        SearchChats(this.value);
+function GetModalContent() {
+    var url = window.location.hash.toLowerCase();
+    if (!url.startsWith("#showmodal")) {
+        return;
+    }
+    url = url.split("showmodal=")[1];
+    $.get(url,
+        null,
+        function(htmlPage) {
+            $("#ModalContent").html(htmlPage);
+
+            const container = document.getElementById("ModalContent");
+            const forms = container.getElementsByTagName("form");
+            const newForm = forms[forms.length - 1];
+
+            //Validation For Display : None Item
+            $.validator.setDefaults({ ignore: null });
+            $.validator.unobtrusive.parse(newForm);
+
+            $("#MainModal").modal("show");
+            window.location.hash = "";
+
+        }).fail(function() {
+        alert("خطا : لطفا دوباره تلاش کنید");
     });
+};
 
-//Send Message
-ChatMessageForm.on("submit",
-    function(e) {
-        e.preventDefault();
-
-        const messageInput = $(this[1]);
-
-        if (messageInput.val() == "")
-            return;
-
-        const formData = new FormData(this);
+function UpdateUserProfile() {
 
         const settings = {
-            "url": "/Index?handler=SendMessage",
+            "url": "/Index?handler=GetProfileImage",
             "method": "Post",
             "timeout": 0,
-            "data": formData,
-            "contentType": false,
-            "processData": false,
+            "headers": {
+                "Content-Type": "application/json"
+            },
             "error": function(e) {
                 console.log(e);
             }
         };
 
-        $.ajax(settings).done(function(response) {
-            let messages = new Array();
-            messages.push(response);
-            ChatMessagesGenerator(messages, true);
-            $(ChatMessageForm[0][2]).val("");
-
-            let chatId = $(ChatMessageForm[0][0]).val();
-            let accountId = $(ChatMessageForm[0][1]).val();
-
-            ResetChat(chatId, accountId);
-        });
-    });
-
-//input file change event
-$(ChatMessageForm[0][3]).on("change",
-    function() {
-        const messageInput = ChatMessageForm[0][2];
-        const file = $(this).val();
-
-        if (file != "") {
-            messageInput.disabled = true;
-            $(messageInput).val("فایل با موفقیت انتخاب شد(برای لغو دوبار ضربه بزنید)");
+    $.ajax(settings).done(function (response) {
+        if (response != null) {
+            userAvatar.attr("src", `uploads/${response}`);
         }
     });
+}
+
+function OperationEvent(operation) {
+    operation = operation.split("=")[1];
+
+    const chatId = $(chatMessagesMenu).attr("current-chat-id");
+    if (operation == "EditProfile") {
+
+        UpdateUserProfile();
+
+        if (chatId != 0) {
+            GetChatMessage(chatId, false);
+        }
+    }
+}
+
+//Search Chats
+    searchChatsInput.on("keyup",
+        function() {
+            SearchChats(this.value);
+        });
+
+//Send Message
+    ChatMessageForm.on("submit",
+        function(e) {
+            e.preventDefault();
+
+            const messageInput = $(this[1]);
+
+            if (messageInput.val() == "")
+                return;
+
+            const formData = new FormData(this);
+
+            const settings = {
+                "url": "/Index?handler=SendMessage",
+                "method": "Post",
+                "timeout": 0,
+                "data": formData,
+                "contentType": false,
+                "processData": false,
+                "error": function(e) {
+                    console.log(e);
+                }
+            };
+
+            $.ajax(settings).done(function(response) {
+                let messages = new Array();
+                messages.push(response);
+                ChatMessagesGenerator(messages, true);
+                $(ChatMessageForm[0][2]).val("");
+
+                let chatId = $(ChatMessageForm[0][0]).val();
+                let accountId = $(ChatMessageForm[0][1]).val();
+
+                ResetChat(chatId, accountId);
+            });
+        });
+
+//input file change event
+    $(ChatMessageForm[0][3]).on("change",
+        function() {
+            const messageInput = ChatMessageForm[0][2];
+            const file = $(this).val();
+
+            if (file != "") {
+                messageInput.disabled = true;
+                $(messageInput).val("فایل با موفقیت انتخاب شد(برای لغو دوبار ضربه بزنید)");
+            }
+        });
 
 //reset message box form
-$(ChatMessageForm[0]).dblclick(function(e) {
-    e.preventDefault();
-    $(this).trigger("reset");
-});
+    $(ChatMessageForm[0]).dblclick(function(e) {
+        e.preventDefault();
+        $(this).trigger("reset");
+    });
+
+// hash change event
+    $(window).on("hashchange",
+        function(e) {
+            GetModalContent();
+        });
+
+// operation form event
+    $(document).on("submit",
+        'form[data-operation="true"]',
+        function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            const method = form.attr("method").toLocaleLowerCase();
+            const url = form.attr("action");
+            var action = form.attr("data-action");
+
+
+            if (method === "get") {
+                const data = form.serializeArray();
+                $.get(url,
+                    data,
+                    function(data) {
+                        CallBackHandler(data, action, form);
+                    });
+            } else {
+                const formData = new FormData(this);
+                $.ajax({
+                    url: url,
+                    type: "post",
+                    data: formData,
+                    enctype: "multipart/form-data",
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $("#MainModal").modal("hide");
+                        alert(response.message);
+                        OperationEvent(url);
+                    },
+                    error: function() {
+                        $("#MainModal").modal("hide");
+                        alert("خطا : لطفا دوباره امتحان کنید");
+                    }
+                });
+            }
+            return false;
+        });
+
+    jQuery.validator.addMethod("fileExtensionLimit",
+        function(value, element, params) {
+
+            if (element.files[0] == null)
+                return true;
+
+            var fileExe = element.files[0].name.split(".");
+            fileExe = `.${fileExe[fileExe.length - 1]}`;
+
+            const exe = element.attributes.getNamedItem("data-val-extensions").value.split(",");
+
+            return exe.includes(fileExe);
+        });
+    jQuery.validator.unobtrusive.adapters.addBool("fileExtensionLimit");

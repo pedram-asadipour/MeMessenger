@@ -11,7 +11,6 @@ C:\Users\pedram\Desktop\me\source\MeMessenger\CoreLayer\obj\Debug\net5.0\CoreLay
 C:\Users\pedram\Desktop\me\source\MeMessenger\CoreLayer\obj\Debug\net5.0\CoreLayer.AssemblyInfoInputs.cache
 C:\Users\pedram\Desktop\me\source\MeMessenger\CoreLayer\obj\Debug\net5.0\CoreLayer.AssemblyInfo.cs
 C:\Users\pedram\Desktop\me\source\MeMessenger\CoreLayer\obj\Debug\net5.0\CoreLayer.csproj.CoreCompileInputs.cache
-C:\Users\pedram\Desktop\me\source\MeMessenger\CoreLayer\obj\Debug\net5.0\CoreLayer.csproj.CopyComplete
 C:\Users\pedram\Desktop\me\source\MeMessenger\CoreLayer\obj\Debug\net5.0\CoreLayer.dll
 C:\Users\pedram\Desktop\me\source\MeMessenger\CoreLayer\obj\Debug\net5.0\ref\CoreLayer.dll
 C:\Users\pedram\Desktop\me\source\MeMessenger\CoreLayer\obj\Debug\net5.0\CoreLayer.pdb
