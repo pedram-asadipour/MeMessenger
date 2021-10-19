@@ -355,15 +355,17 @@ function UpdateUserProfile() {
 
 function OperationEvent(operation) {
     operation = operation.split("=")[1];
-
     const chatId = $(chatMessagesMenu).attr("current-chat-id");
+
     if (operation == "EditProfile") {
-
         UpdateUserProfile();
-
         if (chatId != 0) {
             GetChatMessage(chatId, false);
         }
+    }
+
+    if (operation == "AddGroupChannel") {
+        GetChats(isConnect);
     }
 }
 
@@ -378,7 +380,7 @@ function OperationEvent(operation) {
         function(e) {
             e.preventDefault();
 
-            const messageInput = $(this[1]);
+            const messageInput = $(this[2]);
 
             if (messageInput.val() == "")
                 return;
@@ -406,6 +408,9 @@ function OperationEvent(operation) {
                 let chatId = $(ChatMessageForm[0][0]).val();
                 let accountId = $(ChatMessageForm[0][1]).val();
 
+                $(this).trigger("reset");
+                messageInput.prop("disabled",false);
+
                 ResetChat(chatId, accountId);
             });
         });
@@ -426,6 +431,8 @@ function OperationEvent(operation) {
     $(ChatMessageForm[0]).dblclick(function(e) {
         e.preventDefault();
         $(this).trigger("reset");
+        const messageInput = ChatMessageForm[0][2];
+        messageInput.disabled = false;
     });
 
 // hash change event

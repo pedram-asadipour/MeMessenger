@@ -17,16 +17,18 @@ namespace CoreLayer.ChatAgg.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthHelper _authHelper;
         private readonly IFileManager _fileManager;
+        private readonly IUserChatServices _userChatServices;
         private readonly OperationResult _result;
         private readonly List<UserStatus> _userStatus;
 
         public ChatServices(IUnitOfWork unitOfWork, IAuthHelper authHelper, IFileManager fileManager,
-            List<UserStatus> userStatus)
+            List<UserStatus> userStatus, IUserChatServices userChatServices)
         {
             _unitOfWork = unitOfWork;
             _authHelper = authHelper;
             _fileManager = fileManager;
             _userStatus = userStatus;
+            _userChatServices = userChatServices;
 
             _result = new OperationResult();
         }
@@ -80,8 +82,10 @@ namespace CoreLayer.ChatAgg.Services
         {
             try
             {
-                if (_unitOfWork.Chats.Exists(x => x.Title == command.Title && x.Title != ""))
-                    _result.Failed(OperationMessage.ExistTitle);
+                var accountId = _authHelper.GetAuthAccount().Id;
+
+                if (_unitOfWork.Chats.Exists(x => x.Title == command.Title))
+                    return _result.Failed(OperationMessage.ExistTitle);
 
                 var image = "";
 
@@ -91,6 +95,9 @@ namespace CoreLayer.ChatAgg.Services
                 var chat = new Chat(command.Title, image, command.IsPrivate, command.IsGroup, command.IsChannel);
                 _unitOfWork.Chats.Create(chat);
                 _unitOfWork.SaveChange();
+
+                var joinChat = new JoinChat(chat.Id,accountId,Permission.Admin);
+                _userChatServices.JoinChat(joinChat);
 
                 return _result.Success();
             }

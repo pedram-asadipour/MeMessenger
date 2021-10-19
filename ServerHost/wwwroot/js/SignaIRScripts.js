@@ -41,22 +41,35 @@ connection.on("ReceiveMessage",
     });
 
 connection.on("UserStatus",
-    function(result) {
+    function (result) {
+
         const element = $(`li[account-id='${result.id}']`);
+        const chatConnectionStatus = $(userChat).find("p#user-chat-connection-status")[0];
+ 
 
         if (element.length != 0) {
 
             const statusPoint = element.find("i.status-point");
             const statusAlert = element.find("span.status-alert");
+            const chatId = element.attr("chat-id");
 
             if (result.isOnline) {
                 $(statusPoint).removeClass("text-danger");
                 $(statusPoint).addClass("text-success");
                 $(statusAlert).html("آنلاین");
+
+                if (userChat.attr("current-chat-id") == chatId) {
+                    chatConnectionStatus.innerHTML = "آنلاین";
+                }
+
             } else {
                 $(statusPoint).removeClass("text-success");
                 $(statusPoint).addClass("text-danger");
                 $(statusAlert).html("آفلاین");
+
+                if (userChat.attr("current-chat-id") == chatId) {
+                    chatConnectionStatus.innerHTML = "آفلاین";
+                }
             }
         }
     });

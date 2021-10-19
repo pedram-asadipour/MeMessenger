@@ -26,7 +26,8 @@ namespace ServerHost.Pages
         private readonly IAuthHelper _authHelper;
         private readonly IHubContext<ChatHub> _hubContext;
 
-        public IndexModel(IChatServices chatServices, IMessageServices messageServices, IHubContext<ChatHub> hubContext, IUserChatServices userChatServices, IAccountServices accountServices, IAuthHelper authHelper)
+        public IndexModel(IChatServices chatServices, IMessageServices messageServices, IHubContext<ChatHub> hubContext,
+            IUserChatServices userChatServices, IAccountServices accountServices, IAuthHelper authHelper)
         {
             _chatServices = chatServices;
             _messageServices = messageServices;
@@ -43,7 +44,7 @@ namespace ServerHost.Pages
         public PartialViewResult OnGetProfile()
         {
             var profile = _accountServices.GetCurrentAccount();
-            return Partial("Shared/Home/_userInfo",profile);
+            return Partial("Shared/Home/_userInfo", profile);
         }
 
         public JsonResult OnPostEditProfile([FromForm] ProfileViewModel command)
@@ -61,15 +62,30 @@ namespace ServerHost.Pages
             {
                 Id = _authHelper.GetAuthAccount().Id
             };
-            return Partial("Shared/Home/_editPassword",editPassword);
+            return Partial("Shared/Home/_editPassword", editPassword);
         }
 
-        public JsonResult OnPostEditPassword([FromForm]EditPassword command)
+        public JsonResult OnPostEditPassword([FromForm] EditPassword command)
         {
             if (!ModelState.IsValid)
                 return new JsonResult(new OperationResult().Failed(OperationMessage.AllRequired));
 
             var result = _accountServices.EditPassword(command);
+            return new JsonResult(result);
+        }
+
+        public PartialViewResult OnGetAddGroupChannel()
+        {
+            return Partial("Shared/Home/_addGroup_Channel");
+        }
+
+        public JsonResult OnPostAddGroupChannel(CreateChat command)
+        {
+            if (!ModelState.IsValid)
+                return new JsonResult(new OperationResult().Failed(OperationMessage.AllRequired));
+
+            command.Group(command.Title, command.Image);
+            var result = _chatServices.CreateChat(command);
             return new JsonResult(result);
         }
 
@@ -79,7 +95,7 @@ namespace ServerHost.Pages
             return new JsonResult(result);
         }
 
-        public JsonResult OnPostSearchChats([FromBody]string search)
+        public JsonResult OnPostSearchChats([FromBody] string search)
         {
             var result = _chatServices.SearchChats(search);
             return new JsonResult(result);
@@ -91,12 +107,12 @@ namespace ServerHost.Pages
                 return new JsonResult("");
 
             var result = _messageServices.GetChatMessages(id);
-            _hubContext.Groups.RemoveFromGroupAsync(HttpContext.Connection.Id, result.First().ChatId.ToString());
-            _hubContext.Groups.AddToGroupAsync(HttpContext.Connection.Id, result.First().ChatId.ToString());
+            _hubContext.Groups.RemoveFromGroupAsync(HttpContext.Connection.Id, id.ToString());
+            _hubContext.Groups.AddToGroupAsync(HttpContext.Connection.Id, id.ToString());
             return new JsonResult(result);
         }
 
-        public JsonResult OnPostSendMessage([FromForm]SendMessage command)
+        public JsonResult OnPostSendMessage([FromForm] SendMessage command)
         {
             var result = _messageServices.SendMessage(command);
             var usersChat = _userChatServices.GetUsersChat(result.ChatId);
@@ -108,7 +124,7 @@ namespace ServerHost.Pages
             return new JsonResult(result);
         }
 
-        public JsonResult OnPostGetChatInfo([FromBody]ChatInfo command)
+        public JsonResult OnPostGetChatInfo([FromBody] ChatInfo command)
         {
             var result = _chatServices.GetChatInfo(command);
             return new JsonResult(result);
