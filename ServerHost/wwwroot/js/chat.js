@@ -306,7 +306,11 @@ function GetChatInfo(chatInfo, isCheckChatId = true) {
 }
 
 function GetModalContent() {
+
     var url = window.location.hash.toLowerCase();
+
+    window.location.hash = "";
+
     if (!url.startsWith("#showmodal")) {
         return;
     }
@@ -325,10 +329,8 @@ function GetModalContent() {
             $.validator.unobtrusive.parse(newForm);
 
             $("#MainModal").modal("show");
-            window.location.hash = "";
-
-        }).fail(function() {
-        alert("خطا : لطفا دوباره تلاش کنید");
+        }).fail(function () {
+            swal("خطا", "لطفا دوباره تلاش کنید", "warning");
     });
 };
 
@@ -342,7 +344,7 @@ function UpdateUserProfile() {
                 "Content-Type": "application/json"
             },
             "error": function(e) {
-                console.log(e);
+                swal("خطا", "لطفا دوباره تلاش کنید", "warning");
             }
         };
 
@@ -367,6 +369,26 @@ function OperationEvent(operation) {
     if (operation == "AddGroupChannel") {
         GetChats(isConnect);
     }
+}
+
+async function SendNotification(title,message,img) {
+
+    if (Notification.permission === "granted") {
+
+        const notification = new Notification(title,
+            {
+                body: message,
+                icon: img
+            });
+
+    } else {
+        swal("توجه توجه", "با فعال کردن اعلانات مرورگر از اخرین پیام هایی که دریافت می کنید مطلع می شود", "warning");
+        const permission = await Notification.requestPermission();
+
+        if (permission === "granted")
+            SendNotification(title, message, img);
+    }
+
 }
 
 //Search Chats
@@ -395,7 +417,7 @@ function OperationEvent(operation) {
                 "contentType": false,
                 "processData": false,
                 "error": function(e) {
-                    console.log(e);
+                    swal("خطا", "لطفا دوباره تلاش کنید", "warning");
                 }
             };
 
@@ -472,12 +494,12 @@ function OperationEvent(operation) {
                     contentType: false,
                     success: function(response) {
                         $("#MainModal").modal("hide");
-                        alert(response.message);
+                        swal("", response.message, "success");
                         OperationEvent(url);
                     },
                     error: function() {
                         $("#MainModal").modal("hide");
-                        alert("خطا : لطفا دوباره امتحان کنید");
+                        swal("خطا", "لطفا دوباره تلاش کنید", "warning");
                     }
                 });
             }

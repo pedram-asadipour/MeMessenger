@@ -102,14 +102,20 @@ namespace CoreLayer.MessageAgg.Services
                 _unitOfWork.SaveChange();
                 
                 var account = _unitOfWork.Accounts.GetBy(accountId);
+
+                var currentChat = _unitOfWork.Chats.Get()
+                    .Select(x => new { x.Id,x.Title,x.Image })
+                    .SingleOrDefault(x => x.Id == command.ChatId);
                 
                 return new MessageViewModel
                 {
                     Id = message.Id,
+                    ChatName = currentChat.Title,
                     ChatId = command.ChatId,
                     IsOwner = true,
                     Username = account.Username,
                     ProfileImage = account.ProfileImage,
+                    ChatImage = currentChat.Image,
                     Body = message.Body,
                     IsFile = message.IsFile,
                     SendDate = message.CreationDate.ToPersianTime()

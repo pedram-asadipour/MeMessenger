@@ -6,7 +6,6 @@
 async function start() {
     try {
         await connection.start();
-        console.log("SignalR Connected.");
 
         isConnect = true;
         UserConnectionGenerator(true);
@@ -15,9 +14,7 @@ async function start() {
         searchChatsInput.css("background", "#fff");
         Chats.css("display", "block");
 
-    } catch (err) {
-        console.log(err);
-
+    } catch (e) {
         isConnect = false;
         UserConnectionGenerator(false);
         GetChats(false);
@@ -34,9 +31,25 @@ connection.onclose(async () => {
 });
 
 connection.on("ReceiveMessage",
-    function(result) {
+    function (result) {
         const message = [];
         message.push(result);
+
+        if (message[0].chatName == "") {
+
+            SendNotification(message[0].username,
+                message[0].body,
+                `/uploads/${message[0].profileImage}`);
+
+        } else {
+
+            const body = `${message[0].username} : ${message[0].body}`;
+            SendNotification(message[0].chatName,
+                body,
+                `/uploads/${message[0].chatImage}`);
+
+        }
+
         ChatMessagesGenerator(message, true);
     });
 
