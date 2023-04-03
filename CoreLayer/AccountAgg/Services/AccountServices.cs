@@ -36,7 +36,8 @@ namespace CoreLayer.AccountAgg.Services
                 .Select(x => new ProfileViewModel
                 {
                     Id = x.Id,
-                    Username = x.Username
+                    Username = x.Username,
+                    ProfileImagePath = x.ProfileImage
                 })
                 .SingleOrDefault(x => x.Id == accountId);
         }

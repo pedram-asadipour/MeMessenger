@@ -1,6 +1,6 @@
 ﻿@model CoreLayer.MessageAgg.Contract.SendMessage
 
-<section id="Chats" class="col-12 col-md-8 disable-element">
+<section id="Chats" class="col-12 col-lg-8 disable-element">
 
     <ul class="list-unstyled p-0 m-0 pb-5" current-chat-id="0">
 
@@ -25,7 +25,7 @@
 
     </ul>
     <div class="chat-message-box">
-        <form class="form-inline" enctype="multipart/form-data">
+        <form class="form-inline d-flex justify-content-center align-items-baseline" enctype="multipart/form-data">
             <input asp-for="ChatId" type="hidden">
             <input asp-for="ReceiveId" type="hidden">
             <input asp-for="Body" class="form-control p-4 w-75" placeholder="📧 پیام">

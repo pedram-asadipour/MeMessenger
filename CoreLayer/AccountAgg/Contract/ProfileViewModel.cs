@@ -15,5 +15,8 @@ namespace CoreLayer.AccountAgg.Contract
         [DisplayName("تصویر پروفایل")]
         [FileExtensionLimit(new []{".jpg",".png",".gif", ".jpeg" },ErrorMessage = OperationMessage.ImageExtension + " : jpg,pnd,jpeg,gif")]
         public IFormFile ProfileImage { get; set; }
+
+
+        public string ProfileImagePath { get; set; }
     }
 }

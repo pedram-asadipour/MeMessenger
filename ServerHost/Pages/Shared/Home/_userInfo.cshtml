@@ -10,6 +10,12 @@
 
         <div class="modal-body">
             
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <img class="mx-3 profile-image" src="~/Uploads/@Model.ProfileImagePath" alt="avatar" />
+                    <span>@Model.Username</span>
+                </div>
+            </div>
             
             <form asp-page="/Index" asp-page-handler="EditProfile"
                   method="post"

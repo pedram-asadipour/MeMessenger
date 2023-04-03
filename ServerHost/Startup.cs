@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using _Framework.Auth;
 using _Framework.FileManager;
 using CoreLayer.AccountAgg.Contract;
@@ -19,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using ServerHost.Framework.Auth;
 using ServerHost.Framework.FileManager;
@@ -92,7 +94,12 @@ namespace ServerHost
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
+            });
+
 
             app.UseRouting();
 

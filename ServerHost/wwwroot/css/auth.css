@@ -3,9 +3,7 @@
 @font-face {
     font-family: Vazir;
     src: url("./Vazir-Medium.eot");
-    src: url("./Vazir-Medium.eot?#iefix") format("embedded-opentype"),
-         url("./Vazir-Medium.woff2") format("woff2"), url("Vazir-Medium.woff") format("woff"),
-         url("./Vazir-Medium.ttf") format("truetype");
+    src: url("./Vazir-Medium.eot?#iefix") format("embedded-opentype"), url("./Vazir-Medium.woff2") format("woff2"), url("Vazir-Medium.woff") format("woff"), url("./Vazir-Medium.ttf") format("truetype");
     font-weight: 500;
     font-style: normal;
 }
@@ -21,6 +19,12 @@ body {
     text-align: right !important;
 }
 
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
 #signin div.card,
 #signup div.card {
     border-radius: 1rem !important;
@@ -28,17 +32,32 @@ body {
 }
 
 
-body{
+body {
     overflow: auto;
 }
 
-body div.container {
-    margin-top: 8rem;
-}
+    body div.container {
+        margin-top: 8rem;
+    }
 
 #signin,
 #signup {
     max-width: 500px;
     min-width: 400px;
     margin: auto;
+}
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }

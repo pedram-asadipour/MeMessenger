@@ -17,16 +17,16 @@
 <body>
 
 
-<div class="container">
+    <div class="container">
 
-    @RenderBody()
+        @RenderBody()
 
-</div>
+    </div>
 
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-@await RenderSectionAsync("script", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("script", required: false)
 </body>
 
 </html>

@@ -1,18 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LIfGnY8xon5b/inlPxeOYjM3N41AoZWZiKBDv9/2AKZhndEZKpK0w79PvONJQa/ukGcI43PWx/iAXhhW3zW+LA==",
+  "dgSpecHash": "whQMxcj4+RkKLOZmrc+TM7rsCTKbrqC8JNxKRpbLsOzr7ZokiqvvEMK4rcAc/BReAMIvkZkk7b28iwPAVryqSg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pedram\\Desktop\\me\\source\\MeMessenger\\_Framework\\_Framework.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\pedram\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
-    "C:\\Users\\pedram\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.10\\microsoft.aspnetcore.http.features.5.0.10.nupkg.sha512",
-    "C:\\Users\\pedram\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.2.0\\microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
-    "C:\\Users\\pedram\\.nuget\\packages\\microsoft.aspnetcore.routing.abstractions\\2.2.0\\microsoft.aspnetcore.routing.abstractions.2.2.0.nupkg.sha512",
-    "C:\\Users\\pedram\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
-    "C:\\Users\\pedram\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
-    "C:\\Users\\pedram\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
-    "C:\\Users\\pedram\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512",
-    "C:\\Users\\pedram\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Projects\\MeMessenger\\_Framework\\_Framework.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
